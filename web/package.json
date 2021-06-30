@@ -9,7 +9,6 @@
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.24.0",
-    "postcss-cli": "^8.3.1",
     "prettier": "^2.3.0",
     "pretty-quick": "^3.1.0"
   },
@@ -23,6 +22,7 @@
     "socket.io-client": "^4.1.2",
     "tailwindcss": "^2.1.4",
     "@snowpack/plugin-build-script": "^2.1.0",
-     "snowpack": "^3.3.7"
+    "snowpack": "^3.3.7",
+    "postcss-cli": "^8.3.1
   }
 }
