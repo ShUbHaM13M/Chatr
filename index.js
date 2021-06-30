@@ -43,12 +43,12 @@ require('./middlewares/jwt')(passport)
 require('./middlewares/facebook')(passport)
 require('./middlewares/google')(passport)
 
-app.use(express.static(path.join(__dirname, 'web/build')))
-
-app.get('*', (_req, res) => {
-  res.sendFile(path.join(__dirname + '/web/build/index.html'))
-})
-
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "web/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "web", "build", "index.html"));
+  });
+}
 require('./routes/index')(app)
 const server =  app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`))
 
