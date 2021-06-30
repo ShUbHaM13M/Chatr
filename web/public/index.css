@@ -1,0 +1,97 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*::selection {
+	background-color: white;
+	color: black;	
+}
+
+* {
+	scrollbar-color: rgba(105, 162, 211, 0.8) #FFFFFF ;
+	scrollbar-width: thin;
+}
+
+body {
+	background: url('./images/bg.jpg')
+}
+::-webkit-scrollbar{
+	width: 13px;
+	height: 13px;
+}
+::-webkit-scrollbar-thumb{
+	background: rgba(105, 162, 211, 0.8);
+	border: 1px solid rgba(105, 162, 211);
+	border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover{
+	background: #69a2d3;
+}
+::-webkit-scrollbar-track{
+	background: #FFFFFF;
+	border-radius: 10px;
+	box-shadow: inset 7px 10px 12px 0px #F0F0F0;
+}
+
+a {
+	@apply text-blue-500 no-underline transition-opacity duration-350 hover:opacity-60
+}
+
+button:focus {
+	outline: none !important;
+}
+
+.divider {
+  @apply h-0.5 w-4/5 rounded-md bg-gray-300 opacity-80
+}
+
+.icon-btn {
+	--img-size: 1.5em;
+	@apply w-14 h-14 sm:w-12 sm:h-12 rounded-md shadow-md p-2 
+	grid place-items-center 
+	transition-colors duration-350 
+	hover:bg-primary focus:bg-primary ease-in-out
+}
+
+.icon-btn img {
+	max-width: var(--img-size);
+	max-height: var(--img-size);
+}
+
+.icon-btn:hover>img {
+	filter: brightness(0) invert(1);
+	transition: filter 350ms ease-in-out;
+}
+
+.item {
+	@apply opacity-90 flex justify-center items-center transition-all duration-350 ease-in-out
+}
+
+.user-img {
+	@apply w-14 h-14 rounded-full shadow-sm
+}
+
+.badge {
+	@apply h-3 w-3 rounded-full absolute border-gray-300 border-2 bottom-1 right-0 bg-gray-600
+}
+
+.badge.active {
+	@apply bg-green-400
+}
+
+.dot {
+	animation: transformDots 750ms ease-in forwards infinite;
+	animation-delay: calc(0.095s * var(--stagger-delay));
+	@apply w-2 h-2 rounded-full bg-white absolute
+}
+
+.glass {
+	@apply bg-gray-50 bg-opacity-50 backdrop-filter backdrop-blur bg-clip-padding
+}
+
+@keyframes transformDots {
+	0% { transform: translateY(-50%) } 
+	50% { transform: translateY(50%) } 
+	100% { transform: translateY(-50%) }
+}
