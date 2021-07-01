@@ -14,7 +14,7 @@ export default {
     {match: "routes", src: ".*", dest: "/index.html"},
   ],
   env: {
-    API_URL: 'http://localhost:3000/api'
+    API_URL: '/api'
   },
   optimize: {
     /* Example: Bundle your final build: */
