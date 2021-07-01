@@ -9,10 +9,11 @@ router.get('/', passport.authenticate(
     {session: false}
   ), (req, res) => {
     const {user} = req
-    if (!user) return res.status(401).json({message: 'Not Authorized'})
+    res.header('Content-Type', 'application/json')
+    if (!user) return res.status(401).json({message: 'Not Authorized', type: 'danger'})
 
   return res.status(200).json({
-    user
+    user, type: 'success'
   })
 })
 

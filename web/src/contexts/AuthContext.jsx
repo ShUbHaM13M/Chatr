@@ -19,13 +19,19 @@ const AuthProvider = ({children, setId}) => {
     try {
       const res = await fetch(`${API_URL}/user`, {
         headers: {
-          Authorization: `Bearer ${jwtToken}`
-        }
+          'Authorization': `Bearer ${jwtToken}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        credentials: 'include'
       })
       const data = await res.json()
-      if (res.ok && data.user) {
-        setUser(data.user)
-        setId(data.user?._id) 
+      if (res.ok) {
+        if (data.type === 'success') {
+          setUser(data.user)
+          setId(data.user?._id) 
+          return
+        }
       }
     } catch (err) {
       console.log(err)

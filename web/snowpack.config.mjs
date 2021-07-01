@@ -6,7 +6,8 @@ export default {
      src: '/dist',
   },
   plugins: [
-    ["@snowpack/plugin-build-script", { cmd: "postcss", input: [".css"], output: [".css"] }]
+    ["@snowpack/plugin-build-script", { cmd: "postcss", input: [".css"], output: [".css"] }],
+    ["@snowpack/plugin-webpack"]
   ],
   routes: [
     /* Enable an SPA Fallback in development: */
