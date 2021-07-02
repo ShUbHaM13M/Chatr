@@ -20,6 +20,9 @@ module.exports = {
       transitionProperty: {
         'width': 'width',
         'filter': 'filter'
+      },
+      maxWidth: {
+        '2/5': '60%'
       }
     },
   },

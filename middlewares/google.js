@@ -12,11 +12,13 @@ module.exports = passport => passport.use(
     const {id, photos, emails, displayName} = profile
 
     process.nextTick(() => {
-      User.findOne({ email: emails[0].value }, (err, user) => {
+      User.findOne({ email: emails[0].value }, (err, doc) => {
         if (err) return done(err)
-
+        let user = doc
         if (user && user.googleId) return done(null, user)
 
+        if  (!user) user = new User()
+        if (!user.username) user.username = displayName
         user.googleId = id
         user.google = {
           name: displayName,

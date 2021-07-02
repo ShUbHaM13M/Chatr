@@ -78,7 +78,7 @@ function Login() {
               text="Login"
               primary
               disabled={disabled} />
-            <a href="#">Forgot password ?</a>
+            <a href="#" className="pointer-events-none">Forgot password ?</a>
             <div className="divider"></div>
             <div className="flex gap-4">
               <FacebookBtn />

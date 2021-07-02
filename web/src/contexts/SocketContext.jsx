@@ -14,7 +14,8 @@ function SocketProvider ({id, children}) {
 
   useEffect(() => {
     const newSocket = io(
-      '/',
+      // for dev: http://localhost:3000/
+      location.href,
       { query: { id } }
     )
     setSocket(newSocket)

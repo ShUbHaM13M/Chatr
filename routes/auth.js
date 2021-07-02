@@ -6,14 +6,17 @@ const Auth = require('../controller/auth')
 
 const router = express.Router()
 
-const generateHtmlWithEmbeddedJWT = user => (`
-  <html>
+const generateHtmlWithEmbeddedJWT = user => {
+  console.log('pinged')
+  const jwt = JSON.stringify(user.generateJWT())
+
+  return `<html>
     <script>
-      window.localStorage.setItem('chatr.-token', '${user.generateJWT()}')
+      window.localStorage.setItem('chatr.-token', '${jwt}')
       window.location.href = '/'
     </script>
-  </html>
-`)
+  </html>`
+}
 
 router.post('/signup', Auth.register)
 

@@ -41,13 +41,15 @@ require('./middlewares/jwt')(passport)
 require('./middlewares/facebook')(passport)
 require('./middlewares/google')(passport)
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "web/build")));
-  app.get('/', (req, res) => {
+app.use(express.static(path.join(__dirname, "web/build")));
+require('./routes/index')(app)
+
+// if (process.env.NODE_ENV === "production") {
+  app.get('*', (_, res) => {
     res.sendFile(path.resolve(__dirname, "web/build/index.html"));
   });
-}
-require('./routes/index')(app)
-const server =  app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`))
+// }
+  
+const server =  app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
 
 require('./controller/socket').initialize(server)

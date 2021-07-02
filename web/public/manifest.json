@@ -1,10 +1,11 @@
 {
  "name": "Chatr.",
  "short_name": "Chatr.",
+ "description": "Chatr. chatting app made with React",
  "background_color": "#FFFFFF",
  "theme_color": "#69A1D3",
  "display": "standalone",
- "start_url": "/login",
+ "start_url": "/",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",

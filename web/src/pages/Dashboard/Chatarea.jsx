@@ -7,41 +7,42 @@ import NoConversation from './NoConversation'
 import Typing from '../../components/Typing'
 import PropTypes from 'prop-types'
 
-function Chatarea({setExtended}) {
+function Chatarea({ setExtended }) {
 
   const chatAreaRef = useRef(null)
+  const messageRef = useRef(null)
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState([])
-  const {user} = useAuth()
-  const {socket} = useSocket()
-  const {selectedConversation, conversationHistory} = useConversation()
+  const { user } = useAuth()
+  const { socket } = useSocket()
+  const { selectedConversation, conversationHistory } = useConversation()
   const [conversationTyping, setConversationTyping] = useState(false)
   let timeout = useRef(null)
 
-  function onTyping (e) {
+  function onTyping(e) {
     if (e.key !== 'Enter') {
       socket.emit('typing', {
-        user: user._id, 
-        typing: true, 
+        user: user._id,
+        typing: true,
         recipient: selectedConversation._id
       })
       clearTimeout(timeout.current)
       timeout.current = setTimeout(typingTimeout, 3000)
       return
-    } 
+    }
     clearTimeout(timeout.current)
     typingTimeout()
     sendMessage()
   }
 
-  function typingTimeout () {
+  function typingTimeout() {
     socket.emit('typing', {
-      user: user._id, 
-      typing: false, 
+      user: user._id,
+      typing: false,
       recipient: selectedConversation._id
     })
   }
-  
+
   function sendMessage() {
     if (message.length === 0) return
     socket.emit('send-message', {
@@ -51,28 +52,29 @@ function Chatarea({setExtended}) {
       roomId: selectedConversation.roomId,
       timestamp: Date.now()
     })
-    setMessages(prev => [...prev, {message, by: user._id, timestamp: Date.now()}])
+    setMessages(prev => [...prev, { message, by: user._id, timestamp: Date.now() }])
     setMessage('')
   }
 
   function onSubmit(e) {
     e.preventDefault()
     sendMessage()
-    chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight
   }
 
   useEffect(() => {
-    if (chatAreaRef.current !== null)
-      chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight
-  }, [chatAreaRef.current])
+    console.log(messageRef)
+    if (messageRef.current !== null) {
+      messageRef.current.scrollIntoView()
+    }
+  }, [messageRef.current])
 
   useEffect(() => {
     if (!socket) return
     socket.on('receive-message', ({ by, message, timestamp }) => {
-      setMessages(prev => [...prev, {message, by, timestamp}])
+      setMessages(prev => [...prev, { message, by, timestamp }])
     })
 
-    socket.on('user-typing', ({typing}) => {
+    socket.on('user-typing', ({ typing }) => {
       setConversationTyping(typing)
     })
 
@@ -83,10 +85,10 @@ function Chatarea({setExtended}) {
   }, [socket])
 
   useEffect(() => {
-    if (selectedConversation)  
-      setMessages([]) 
+    if (selectedConversation)
+      setMessages([])
   }, [selectedConversation])
-  
+
   useEffect(() => {
     if (conversationHistory) {
       setMessages(prev => [...prev, ...conversationHistory])
@@ -95,27 +97,34 @@ function Chatarea({setExtended}) {
 
   return (
     <>
-      {selectedConversation.length !== 0 ? 
-        <div className="flex flex-1 gap-2 max-h-screen flex-col justify-between py-4 px-8 glass text-white"
-          style={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
+      {selectedConversation.length !== 0 ?
+        <div className="flex flex-1 gap-2 max-h-screen flex-col justify-between py-2 px-4 md:py-4 md:px-8 glass text-white"
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
           <div>
-            <div className="flex gap-4 items-center">
-              <button className='item block md:hidden transform rotate-180' 
-              onClick={() => setExtended(prev => !prev)}>
-                <img className="transition-transform duration-350 ease-in-out w-12" 
-                src="../images/back.svg" alt="<-" />
+            <div className="flex gap-2 items-center relative">
+              <button className='item block md:hidden transform rotate-180'
+                onClick={() => setExtended(prev => !prev)}>
+                <img className="transition-transform duration-350 ease-in-out w-12"
+                  src="../images/back.svg" alt="<-" />
               </button>
+              <div className={`rounded-full h-3 w-3 border-gray-300 border-2 
+              ${selectedConversation.isActive ? 'bg-green-400' : 'bg-gray-600'}`} />
               <h2 className="text-xl">{selectedConversation.username}</h2>
             </div>
             <div className="divider mt-4" style={{ width: '100%' }}></div>
           </div>
           <div ref={chatAreaRef} className="flex flex-1 flex-col gap-1 py-4 px-1 
           overflow-y-auto overflow-x-hidden">
-            {messages.map(({message, by, timestamp}, index) =>
-              <Message key={index} message={message} userId={by} timestamp={timestamp} />
+            {messages.map(({ message, by, timestamp }, index) =>
+              <Message 
+                key={index} 
+                message={message} 
+                userId={by}
+                forwardRef={index === messages.length - 1 ? messageRef : null} 
+                timestamp={timestamp} />
             )}
           </div>
-          
+
           {conversationTyping && <Typing />}
 
           <form onSubmit={onSubmit} className="flex pr-4 bg-gray-200
@@ -133,11 +142,11 @@ function Chatarea({setExtended}) {
             <button className="cursor-pointer 
             transform transition-transform duration-350 ease-in-out
             hover:-translate-y-1">
-              <img className='w-8 h-8 filter brightness-0 invert' 
-              src="../images/send.svg" alt="send" />
+              <img className='w-8 h-8 filter brightness-0 invert'
+                src="../images/send.svg" alt="send" />
             </button>
           </form>
-        </div> : 
+        </div> :
         <NoConversation setExtended={setExtended} />}
     </>
   )
