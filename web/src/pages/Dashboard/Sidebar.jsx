@@ -54,7 +54,7 @@ function Sidebar({ showContactDialog, extended, setExtended }) {
     <div
       className={`bg-primary w-24 h-screen bg-opacity-70 absolute md:static
         flex flex-col backdrop-filter backdrop-blur bg-clip-padding
-        p-4 items-center justify-between
+        p-2 md:p-4 items-center justify-between
         transition-all duration-350 ease-in-out md:ease-spring
         z-10 
         ${extended ? 'w-screen md:w-60 left-0' : 'md:hover:w-28 -left-full'}`}

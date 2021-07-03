@@ -10,20 +10,20 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.24.0",
     "prettier": "^2.3.0",
-    "pretty-quick": "^3.1.0"
-  },
-  "dependencies": {
+    "pretty-quick": "^3.1.0",
     "@snowpack/plugin-build-script": "^2.1.0",
     "@snowpack/plugin-webpack": "^3.0.0",
-    "dayjs": "^1.10.5",
     "postcss": "^8.3.0",
     "postcss-cli": "^8.3.1",
+    "snowpack": "^3.3.7",
+    "tailwindcss": "^2.1.4"
+  },
+  "dependencies": {
+    "dayjs": "^1.10.5",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
-    "snowpack": "^3.3.7",
-    "socket.io-client": "^4.1.2",
-    "tailwindcss": "^2.1.4"
+    "socket.io-client": "^4.1.2"
   }
 }

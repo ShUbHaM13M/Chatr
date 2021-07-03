@@ -14,7 +14,7 @@ const Message = ({ userId, message, timestamp, forwardRef }) => {
   return (
     <>
       <div className={`
-        text-lg p-4 max-w-2/5 md:max-w-xs h-auto rounded-xl
+        text-lg p-2 md:p-4 max-w-2/5 md:max-w-xs h-auto rounded-xl
         text-white
         break-words bg-primary relative 
         ${isMessageByUser

@@ -137,7 +137,8 @@ function Chatarea({ setExtended }) {
               focus:placeholder-gray-600 text-white"
               placeholder='Type a message... ✌🏽'
               value={message}
-              onKeyPress={onTyping}
+              onInput={onTyping}
+              // onKeyPress={onTyping}
               onChange={e => setMessage(e.target.value)} />
             <button className="cursor-pointer 
             transform transition-transform duration-350 ease-in-out
